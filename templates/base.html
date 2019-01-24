@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+      <!-- Bootstrap -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+
+    <title>Test Blog {% block title %}{% endblock %}</title>
+
+</head>
+<body>
+    <!-- Nav Bar -->
+    {% include 'partials/_navbar.html' %}
+
+    {% block content %}{% endblock %}
+
+    <!-- Footer -->
+    {% include 'partials/_footer.html' %}
+
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %} "></script>
+
+</body>
+</html>
