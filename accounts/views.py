@@ -33,6 +33,17 @@ def register(request):
         return render(request, 'accounts/register.html')
 
 def login(request):
+    if request.method == 'POST':
+        user_name = request.POST['user_name']
+        password = request.POST['password']
+
+        user = auth.authenticate(username=user_name, password=password)
+
+        if user is not None:
+            auth.login(request, user)
+            return redirect('blog_list')
+        else:
+            return redirect('error')
     return render(request, 'accounts/login.html')
 
 def logout(request):
