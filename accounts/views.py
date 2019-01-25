@@ -1,7 +1,36 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from django.contrib import auth
+
+def error(request):
+    return render(request, 'accounts/error.html')
 
 def register(request):
-    return render(request, 'accounts/register.html')
+    if request.method == 'POST':
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        user_name = request.POST['user_name']
+        email = request.POST['email']
+        password = request.POST['password']
+        password2 = request.POST['password2']
+
+        if password == password2:
+            if User.objects.filter(username=user_name).exists() or \
+                    User.objects.filter(email=email).exists():
+                return redirect('register')
+            else:
+                user = User.objects.create_user(username=user_name,
+                                                email=email,
+                                                password=password,
+                                                first_name=first_name,
+                                                last_name=last_name)
+                user.save()
+                return redirect('login')
+        else:
+            return redirect('register')
+
+    else:
+        return render(request, 'accounts/register.html')
 
 def login(request):
     return render(request, 'accounts/login.html')
