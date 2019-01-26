@@ -10,7 +10,7 @@ def blog_list(request):
 
 def post_single(request, pk):
     post = get_object_or_404(Post, id=pk)
-    comment = Comments.objects.filter(pk=pk, moderation=True)
+    comment = Comments.objects.filter(post_id=pk, moderation=True)
     if request.method == "POST":
         form = CommentForm(request.POST)
         if form.is_valid():
