@@ -31,11 +31,12 @@ class Comments(models.Model):
         verbose_name="Юзверь",
         on_delete=models.CASCADE
     )
-    pos = models.ForeignKey(
+    post = models.ForeignKey(
         Post,
         verbose_name="Пост",
         on_delete=models.CASCADE
     )
+    parent = models.ForeignKey('self', null=True, blank=True, related_name='replies', on_delete=models.CASCADE)
     text = models.TextField("Коммент")
     created = models.DateTimeField("Дата коммента", auto_now=True, null=True)
     moderation = models.BooleanField("Модерация", default=False)
