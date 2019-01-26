@@ -15,6 +15,7 @@ class Post(models.Model):
     text = models.TextField("Текст статьи")
     date_create = models.DateTimeField("Дата создания поста", auto_now=True)
     description = models.CharField("Описание всего этого добра", max_length=200)
+    image = models.ImageField(upload_to='images/', blank=True, null=True)
 
     class Meta:
         verbose_name = "Пост"
@@ -39,7 +40,7 @@ class Comments(models.Model):
     parent = models.ForeignKey('self', null=True, blank=True, related_name='replies', on_delete=models.CASCADE)
     text = models.TextField("Коммент")
     created = models.DateTimeField("Дата коммента", auto_now=True, null=True)
-    moderation = models.BooleanField("Модерация", default=False)
+    moderation = models.BooleanField("Модерация", default=True)
 
     class Meta:
         verbose_name="Коммент"

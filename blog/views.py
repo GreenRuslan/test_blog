@@ -10,13 +10,14 @@ def blog_list(request):
 
 def post_single(request, pk):
     post = get_object_or_404(Post, id=pk)
-    comment = Comments.objects.filter(new=pk, moderation=True)
+    comment = Comments.objects.filter(pk=pk, moderation=True)
     if request.method == "POST":
         form = CommentForm(request.POST)
         if form.is_valid():
             form = form.save(commit=False)
             form.user = request.user
             form.post = post
+            form.save()
             return redirect(post_single, pk)
     else:
         form = CommentForm()

@@ -1,11 +1,18 @@
 {% extends 'base.html' %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Posts list</title>
-</head>
-<body>
 
-</body>
-</html>
+
+{% block content %}
+    {%  for post in posts.all %}
+        <div class="col-md-10 blogShort">
+        <h2><a href="{% url 'blog_post' pk=post.id %}">{{ post.title }}</a></h2>
+            {% if post.image %}
+                <img class="pull-left img-responsive thumb margin10 img-thumbnail"
+                     src="{{ post.image.url }}" alt="картинка потерялася"
+                height="300" width="300">
+            {% endif %}
+            <em>{{ post.description }}</em>
+        <p>{{ post.text }}</p>
+        <p>{{ post.date_create }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
