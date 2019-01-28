@@ -5,7 +5,7 @@
     <p>{{ post.text|safe }}</p><hr>
 
     Автор: {{ post.user }} <hr>
-
+    {{ comments_list }}
     <h4>Комментарии</h4>
      {% for comment in comments %}
         Пользователь - {{ comment.user }}<br>
